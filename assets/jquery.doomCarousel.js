@@ -53,6 +53,7 @@
 		this.imgLinks = $('a', $self);
 		this.imgLinks.each(function (index, el) {
 			var title = $(el).attr('title').replace('{#', '<').replace('#}', '>').replace('!#', '"');
+			$(el).attr('title', title.replace(/(<([^>]+)>)/ig,""));
 			$('<div class="doom-pic-title">' + title + '</div>').appendTo(el);
 		});
 

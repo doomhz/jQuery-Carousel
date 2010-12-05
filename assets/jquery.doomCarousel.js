@@ -15,10 +15,69 @@
 */
 ;(function ($) {
 	$.fn.doomCarousel = function (options) {
-		this.config = {
+		this.config = {leftBtn:'.doom-carousel-left-btn',
+					   rightBtn:'.doom-carousel-right-btn',
+					   slideSpeed:'800',
+					   easing:'swing',
+					   autoSlide:true,
+					   slideDuration:3000
 					  };
 		$.extend(this.config, options);
 
+		var self = this;
+		var $self = $(this);
+
+		this.leftBtn = $(this.config.leftBtn, $self).insertBefore($self);
+		this.rightBtn = $(this.config.rightBtn, $self).insertAfter($self);
+		this.imgList = $('ul:first', $self);
+
+		var totalImages = $('img', $self);
+		this.imgWidth = totalImages.width();
+		this.imgList.width(totalImages.length * this.imgWidth);
+
+		this.leftBtn.click(function () {
+			if (self.slideInterval) {clearInterval(self.slideInterval);}
+			self.slide('left');
+			self.setSlideInterval();
+			return false;
+		});
+
+		this.rightBtn.click(function () {
+			if (self.slideInterval) {clearInterval(self.slideInterval);}
+			self.slide('right');
+			self.setSlideInterval();
+			return false;
+		});
+
+		this.imgLinks = $('a', $self);
+		this.imgLinks.each(function (index, el) {
+			var title = $(el).attr('title').replace('{#', '<').replace('#}', '>').replace('!#', '"');
+			$('<div class="doom-pic-title">' + title + '</div>').appendTo(el);
+		});
+
+		self.setSlideInterval();
+
 		return this;
+	},
+
+	$.fn.slide = function (to) {
+		to = typeof(to) !== 'string' ? 'right' : to;
+		to = to === 'left' ? '-=' : '+=';
+
+		var self = this;
+		var $self = $(this);
+
+		if (self.imgList.width() === $self.scrollLeft() + self.imgWidth) {
+			$self.animate({'scrollLeft':0}, self.config.slideSpeed, self.config.easing);
+		} else {
+			$self.animate({'scrollLeft':to + self.imgWidth + 'px'}, self.config.slideSpeed, self.config.easing);
+		}
+	},
+
+	$.fn.setSlideInterval = function () {
+		if (this.config.autoSlide) {
+			var self = this;
+			self.slideInterval = setInterval(function () {self.slide('right');}, self.config.slideDuration);
+		}
 	}
 })(jQuery);

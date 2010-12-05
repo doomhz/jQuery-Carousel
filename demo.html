@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>jQuery Carousel Demo (Doom edition)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="assets/carousel.css" />
+	<script type="text/javascript" src="assets/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="assets/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="assets/jquery.doomCarousel.js"></script>
+  </head>
+  <body>
+    <h1>jQuery Carousel Demo (Doom edition)</h1>
+
+	
+	<div id="doom-carousel">
+		<a href="#left" title="Left" class="doom-carousel-left-btn"><span>Prev</span></a>
+		<ul class="doom-carousel-list">
+			<li><a href="#" title="Article 1 {#br /#} by Lazei &amp; Illonie"><img src="pics/1.jpg" alt="Car 1" class="doom-carousel-pic" /></a></li>
+			<li><a href="#" title="Article 2 {#br /#} by Lazei &amp; Illonie"><img src="pics/2.jpg" alt="Car 2" class="doom-carousel-pic" /></a></li>
+			<li><a href="#" title="Article 3 {#br /#} by Lazei &amp; Illonie"><img src="pics/3.jpg" alt="Car 3" class="doom-carousel-pic" /></a></li>
+			<li><a href="#" title="Article 4 {#br /#} by Lazei &amp; Illonie"><img src="pics/4.jpg" alt="Car 4" class="doom-carousel-pic" /></a></li>
+			<li><a href="#" title="Article 5 {#br /#} by Lazei &amp; Illonie"><img src="pics/5.jpg" alt="Car 5" class="doom-carousel-pic" /></a></li>
+		</ul>
+		<a href="#right" title="Right" class="doom-carousel-right-btn"><span>Next</span></a>
+	</div>
+
+	<h2>How To</h2>
+
+		<ol>
+			<li>Include the carousel.css style</li>
+			<li>Include the doomCarousel.min.js file</li>
+			<li>Activate the plug-in: $('#doom-carousel').doomCarousel();</li>
+		</ol>
+
+		<h2>Options</h2>
+
+		<dl>
+			<dt><b>leftBtn</b> ('.doom-carousel-left-btn'):</dt>
+			<dd>
+				Selector for prev button.
+			</dd>
+			<dt><b>rightBtn</b> ('.doom-carousel-right-btn'):</dt>
+			<dd>
+				Selector for next button.
+			</dd>
+			<dt><b>slideSpeed</b> ('800'):</dt>
+			<dd>
+				Animation slide speed.
+			</dd>
+			<dt><b>easing</b> ('swing'):</dt>
+			<dd>
+				Animation transition effect. You can install the jQuery Easing Plugin for more effects:
+				<a href="http://gsgd.co.uk/sandbox/jquery/easing/" target="_blank">http://gsgd.co.uk/sandbox/jquery/easing/</a>
+			</dd>
+			<dt><b>autoSlide</b> (true):</dt>
+			<dd>
+				Tels if the carousel should slide automaticaly.
+			</dd>
+			<dt><b>slideDuration</b> (3000):</dt>
+			<dd>
+				Sets the timing for autosliding.
+			</dd>
+		</dl>
+
+		<h2>Implementation</h2>
+
+		<h3>Very simple example</h3>
+
+		<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function () {
+		$('#doom-carousel').doomCarousel();
+	});
+&lt;/script&gt;
+		</pre>
+
+		<h3>Example with jQuery Easing plugin</h3>
+
+		<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function () {
+		$('#doom-carousel').doomCarousel({easing:'easeInOutQuad'});
+	});
+&lt;/script&gt;
+		</pre>
+
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$('#doom-carousel').doomCarousel({easing:'easeInOutQuad', autoSlide:true});
+			});
+		</script>
+
+  </body>
+</html>

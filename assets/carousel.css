@@ -1,0 +1,57 @@
+#doom-carousel {
+	overflow: hidden;
+	width: 500px;
+	height: 300px;
+}
+
+.doom-carousel-left-btn {
+	display:block;
+	height:300px;
+	position:absolute;
+	width:100px;
+	opacity: 0;
+}
+
+.doom-carousel-left-btn:hover {
+	opacity: 1;
+}
+
+.doom-carousel-right-btn {
+	display:block;
+	height:300px;
+	position:absolute;
+	width:100px;
+	top:65px;
+	left:408px;
+	text-align: right;
+	opacity: 0;
+}
+
+.doom-carousel-right-btn:hover {
+	opacity: 1;
+}
+
+.doom-carousel-list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.doom-carousel-list li {
+	display: inline;
+	float: left;
+	width: 500px;
+}
+
+.doom-carousel-pic {
+	border:none;
+	float: left;
+}
+
+.doom-pic-title {
+	float:left;
+	height:50px;
+	position:relative;
+	top:-50px;
+	width:500px;
+}

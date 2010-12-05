@@ -1,0 +1,42 @@
+jQuery Carousel Demo (Doom edition)
+
+How To
+
+   1. Include the carousel.css style
+   2. Include the doomCarousel.min.js file
+   3. Activate the plug-in: $('#doom-carousel').doomCarousel();
+
+Options
+
+leftBtn ('.doom-carousel-left-btn'):
+    Selector for prev button.
+rightBtn ('.doom-carousel-right-btn'):
+    Selector for next button.
+slideSpeed ('800'):
+    Animation slide speed.
+easing ('swing'):
+    Animation transition effect. You can install the jQuery Easing Plugin for more effects: http://gsgd.co.uk/sandbox/jquery/easing/
+autoSlide (true):
+    Tels if the carousel should slide automaticaly.
+slideDuration (3000):
+    Sets the timing for autosliding.
+
+Implementation
+
+
+Very simple example
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#doom-carousel').doomCarousel();
+	});
+</script>
+
+
+Example with jQuery Easing plugin
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#doom-carousel').doomCarousel({easing:'easeInOutQuad'});
+	});
+</script>

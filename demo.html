@@ -60,6 +60,10 @@
 			<dd>
 				Sets the timing for autosliding.
 			</dd>
+			<dt><b>imgWidth</b> (0):</dt>
+			<dd>
+				By default carousel tries to detect the img width automaticaly. It's good to set this if you encounter some problems with the slider.
+			</dd>
 		</dl>
 
 		<h2>Implementation</h2>
@@ -86,7 +90,7 @@
 
 		<script type="text/javascript">
 			$(document).ready(function () {
-				$('#doom-carousel').doomCarousel({easing:'easeInOutQuad', autoSlide:true});
+				$('#doom-carousel').doomCarousel({easing:'easeInOutQuad', imgWidth:500});
 			});
 		</script>
 

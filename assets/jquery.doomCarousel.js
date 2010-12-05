@@ -20,7 +20,8 @@
 					   slideSpeed:'800',
 					   easing:'swing',
 					   autoSlide:true,
-					   slideDuration:3000
+					   slideDuration:3000,
+					   imgWidth:0
 					  };
 		$.extend(this.config, options);
 
@@ -32,19 +33,19 @@
 		this.imgList = $('ul:first', $self);
 
 		var totalImages = $('img', $self);
-		this.imgWidth = totalImages.width();
-		this.imgList.width(totalImages.length * this.imgWidth);
+		this.config.imgWidth = this.config.imgWidth || totalImages.width();
+		this.imgList.width(totalImages.length * this.config.imgWidth);
 
 		this.leftBtn.click(function () {
 			if (self.slideInterval) {clearInterval(self.slideInterval);}
-			self.slide('left');
+			self.slideCarousel('left');
 			self.setSlideInterval();
 			return false;
 		});
 
 		this.rightBtn.click(function () {
 			if (self.slideInterval) {clearInterval(self.slideInterval);}
-			self.slide('right');
+			self.slideCarousel('right');
 			self.setSlideInterval();
 			return false;
 		});
@@ -60,24 +61,24 @@
 		return this;
 	},
 
-	$.fn.slide = function (to) {
+	$.fn.slideCarousel = function (to) {
 		to = typeof(to) !== 'string' ? 'right' : to;
 		to = to === 'left' ? '-=' : '+=';
 
 		var self = this;
 		var $self = $(this);
 
-		if (self.imgList.width() === $self.scrollLeft() + self.imgWidth) {
+		if (self.imgList.width() === $self.scrollLeft() + self.config.imgWidth) {
 			$self.animate({'scrollLeft':0}, self.config.slideSpeed, self.config.easing);
 		} else {
-			$self.animate({'scrollLeft':to + self.imgWidth + 'px'}, self.config.slideSpeed, self.config.easing);
+			$self.animate({'scrollLeft':to + self.config.imgWidth + 'px'}, self.config.slideSpeed, self.config.easing);
 		}
 	},
 
 	$.fn.setSlideInterval = function () {
 		if (this.config.autoSlide) {
 			var self = this;
-			self.slideInterval = setInterval(function () {self.slide('right');}, self.config.slideDuration);
+			self.slideInterval = setInterval(function () {self.slideCarousel('right');}, self.config.slideDuration);
 		}
 	}
 })(jQuery);

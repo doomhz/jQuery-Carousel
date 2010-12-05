@@ -21,7 +21,8 @@
 					   easing:'swing',
 					   autoSlide:true,
 					   slideDuration:3000,
-					   imgWidth:0
+					   imgWidth:0,
+					   onLoad:null
 					  };
 		$.extend(this.config, options);
 
@@ -58,6 +59,8 @@
 		});
 
 		self.setSlideInterval();
+
+		$.isFunction(this.config.onLoad) && this.config.onLoad(this);
 
 		return this;
 	},

@@ -1,10 +1,12 @@
 jQuery Carousel Demo (Doom edition)
 
+
 How To
 
    1. Include the carousel.css style
    2. Include the doomCarousel.min.js file
    3. Activate the plug-in: $('#doom-carousel').doomCarousel();
+
 
 Options
 
@@ -20,9 +22,13 @@ autoSlide (true):
     Tels if the carousel should slide automaticaly.
 slideDuration (3000):
     Sets the timing for autosliding.
+imgWidth (0):
+    By default carousel tries to detect the img width automaticaly. It's good to set this if you encounter some problems with the slider.
+onLoad (null):
+    Callback function that is called after the carousel is loaded and started.
+
 
 Implementation
-
 
 Very simple example
 

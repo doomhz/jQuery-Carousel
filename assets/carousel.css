@@ -64,4 +64,7 @@
 	position:relative;
 	top:-50px;
 	width:500px;
+	background: #111;
+	opacity:0.8;
+	color:red;
 }

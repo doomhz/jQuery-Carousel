@@ -17,6 +17,7 @@
 	$.fn.doomCarousel = function (options) {
 		this.config = {leftBtn:'.doom-carousel-left-btn',
 					   rightBtn:'.doom-carousel-right-btn',
+					   transitionType:'slide',
 					   slideSpeed:'800',
 					   easing:'swing',
 					   autoSlide:true,
@@ -75,16 +76,26 @@
 	},
 
 	$.fn.slideCarousel = function (to) {
-		to = typeof(to) !== 'string' ? 'right' : to;
-		to = to === 'left' ? '-=' : '+=';
-
 		var self = this;
 		var $self = $(this);
+		
+		to = typeof(to) !== 'string' ? 'right' : to;
+		to = to === 'left' ? '-' : '+';
+		var moveSize = (self.imgList.width() === ($self.scrollLeft() + self.config.imgWidth)) ? 0 : self.config.imgWidth;
 
-		if (self.imgList.width() === $self.scrollLeft() + self.config.imgWidth) {
-			$self.animate({'scrollLeft':0}, self.config.slideSpeed, self.config.easing);
-		} else {
-			$self.animate({'scrollLeft':to + self.config.imgWidth + 'px'}, self.config.slideSpeed, self.config.easing);
+		switch (self.config.transitionType) {
+			case 'slide':
+				moveSize = moveSize ? to + '=' + moveSize : moveSize;
+				$self.animate({'scrollLeft':moveSize}, self.config.slideSpeed, self.config.easing);
+				break;
+			case 'fade':
+				moveSize = moveSize ? $self.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
+				self.imgList.fadeTo(self.config.easing, 0, function () {$self.scrollLeft(moveSize);self.imgList.fadeTo(self.config.easing, 1)});
+				break;
+			default:
+				moveSize = moveSize ? $self.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
+				$self.scrollLeft(moveSize);
+				break;
 		}
 	},
 

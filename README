@@ -14,6 +14,8 @@ leftBtn ('.doom-carousel-left-btn'):
     Selector for prev button.
 rightBtn ('.doom-carousel-right-btn'):
     Selector for next button.
+transitionType ('slide'):
+    You can set the transition to 'slide', 'fade' or false to change the sliding effect.
 slideSpeed ('800'):
     Animation slide speed.
 easing ('swing'):
@@ -48,5 +50,14 @@ Example with jQuery Easing plugin
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#doom-carousel').doomCarousel({easing:'easeInOutQuad'});
+	});
+</script>
+
+
+Example with fade transition
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#doom-carousel').doomCarousel({transitionType:'fade'});
 	});
 </script>

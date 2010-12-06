@@ -43,6 +43,10 @@
 			<dd>
 				Selector for next button.
 			</dd>
+			<dt><b>transitionType</b> ('slide'):</dt>
+			<dd>
+				You can set the transition to <b>'slide'</b>, <b>'fade'</b> or false to change the sliding effect.
+			</dd>
 			<dt><b>slideSpeed</b> ('800'):</dt>
 			<dd>
 				Animation slide speed.
@@ -96,6 +100,16 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
 	$(document).ready(function () {
 		$('#doom-carousel').doomCarousel({easing:'easeInOutQuad'});
+	});
+&lt;/script&gt;
+		</pre>
+
+		<h3>Example with fade transition</h3>
+
+		<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function () {
+		$('#doom-carousel').doomCarousel({transitionType:'fade'});
 	});
 &lt;/script&gt;
 		</pre>

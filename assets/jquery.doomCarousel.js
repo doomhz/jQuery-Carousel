@@ -22,6 +22,8 @@
 					   autoSlide:true,
 					   slideDuration:3000,
 					   imgWidth:0,
+					   showNav:true,
+					   showCaption:true,
 					   onLoad:null
 					  };
 		$.extend(this.config, options);
@@ -29,34 +31,41 @@
 		var self = this;
 		var $self = $(this);
 
-		this.leftBtn = $(this.config.leftBtn, $self).insertBefore($self);
-		this.rightBtn = $(this.config.rightBtn, $self).insertAfter($self);
+		if (this.config.showNav) {
+			this.leftBtn = $(this.config.leftBtn, $self).insertBefore($self);
+			this.rightBtn = $(this.config.rightBtn, $self).insertAfter($self);
+			this.leftBtn.click(function () {
+				if (self.slideInterval) {clearInterval(self.slideInterval);}
+				self.slideCarousel('left');
+				self.setSlideInterval();
+				return false;
+			});
+
+			this.rightBtn.click(function () {
+				if (self.slideInterval) {clearInterval(self.slideInterval);}
+				self.slideCarousel('right');
+				self.setSlideInterval();
+				return false;
+			});
+		} else {
+			$(this.config.leftBtn, $self).remove();
+			$(this.config.rightBtn, $self).remove();
+		}
+
 		this.imgList = $('ul:first', $self);
 
 		var totalImages = $('img', $self);
 		this.config.imgWidth = this.config.imgWidth || totalImages.width();
 		this.imgList.width(totalImages.length * this.config.imgWidth);
 
-		this.leftBtn.click(function () {
-			if (self.slideInterval) {clearInterval(self.slideInterval);}
-			self.slideCarousel('left');
-			self.setSlideInterval();
-			return false;
-		});
-
-		this.rightBtn.click(function () {
-			if (self.slideInterval) {clearInterval(self.slideInterval);}
-			self.slideCarousel('right');
-			self.setSlideInterval();
-			return false;
-		});
-
-		this.imgLinks = $('a', $self);
-		this.imgLinks.each(function (index, el) {
-			var title = $(el).attr('title').replace('{#', '<').replace('#}', '>').replace('!#', '"');
-			$(el).attr('title', title.replace(/(<([^>]+)>)/ig,""));
-			$('<div class="doom-pic-title">' + title + '</div>').appendTo(el);
-		});
+		if (this.config.showCaption) {
+			this.imgLinks = $('a', $self);
+			this.imgLinks.each(function (index, el) {
+				var title = $(el).attr('title').replace('{#', '<').replace('#}', '>').replace('!#', '"');
+				$(el).attr('title', title.replace(/(<([^>]+)>)/ig,""));
+				$('<div class="doom-pic-title">' + title + '</div>').appendTo(el);
+			});
+		}
 
 		self.setSlideInterval();
 

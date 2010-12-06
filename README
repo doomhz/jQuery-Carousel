@@ -24,6 +24,10 @@ slideDuration (3000):
     Sets the timing for autosliding.
 imgWidth (0):
     By default carousel tries to detect the img width automaticaly. It's good to set this if you encounter some problems with the slider.
+showNav (true):
+    Show prev/next links.
+showCaption (true):
+    Show title caption on slider.
 onLoad (null):
     Callback function that is called after the carousel is loaded and started.
 

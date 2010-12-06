@@ -10,10 +10,15 @@
 	position:absolute;
 	width:100px;
 	opacity: 0;
+	background: url(left_arrow.png) left center no-repeat;
 }
 
 .doom-carousel-left-btn:hover {
 	opacity: 1;
+}
+
+.doom-carousel-left-btn span {
+	display:none;
 }
 
 .doom-carousel-right-btn {
@@ -25,10 +30,15 @@
 	left:408px;
 	text-align: right;
 	opacity: 0;
+	background: url(right_arrow.png) right center no-repeat;
 }
 
 .doom-carousel-right-btn:hover {
 	opacity: 1;
+}
+
+.doom-carousel-right-btn span {
+	display:none;
 }
 
 .doom-carousel-list {

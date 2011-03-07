@@ -1,4 +1,7 @@
 #doom-carousel {
+}
+
+.doom-carousel-cnt {
 	overflow: hidden;
 	width: 500px;
 	height: 300px;
@@ -13,14 +16,6 @@
 	background: url(left_arrow.png) left center no-repeat;
 }
 
-.doom-carousel-left-btn:hover {
-	opacity: 1;
-}
-
-.doom-carousel-left-btn span {
-	display:none;
-}
-
 .doom-carousel-right-btn {
 	display:block;
 	height:300px;
@@ -33,24 +28,25 @@
 	background: url(right_arrow.png) right center no-repeat;
 }
 
-.doom-carousel-right-btn:hover {
+.doom-carousel-left-btn:hover, .doom-carousel-right-btn:hover {
 	opacity: 1;
 }
 
-.doom-carousel-right-btn span {
+.doom-carousel-left-btn span, .doom-carousel-right-btn span {
 	display:none;
 }
 
 .doom-carousel-list {
-	list-style-type: none;
 	padding: 0;
 	margin: 0;
+	overflow: hidden;
 }
 
-.doom-carousel-list li {
-	display: inline;
+.doom-carousel-list a {
+	display: block;
 	float: left;
 	width: 500px;
+	height: 300px;
 }
 
 .doom-carousel-pic {

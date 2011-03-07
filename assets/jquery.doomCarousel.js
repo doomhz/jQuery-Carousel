@@ -5,7 +5,7 @@
 *
 * @author Dumitru Glavan
 * @link http://dumitruglavan.com
-* @version 1.0
+* @version 1.1
 * @requires jQuery v1.3.2 or later
 *
 * Examples and documentation at: http://dumitruglavan.com/jquery-doom-carousel-plugin/
@@ -19,8 +19,10 @@
 */
 ;(function ($) {
 	$.fn.doomCarousel = function (options) {
-		this.config = {leftBtn:'.doom-carousel-left-btn',
-					   rightBtn:'.doom-carousel-right-btn',
+		this.config = {leftBtn:'a.doom-carousel-left-btn',
+					   rightBtn:'a.doom-carousel-right-btn',
+					   imgList:'div.doom-carousel-list',
+					   imgListCnt: 'div.doom-carousel-cnt',
 					   transitionType:'slide',
 					   slideSpeed:'800',
 					   easing:'swing',
@@ -37,8 +39,8 @@
 		var $self = $(this);
 
 		if (this.config.showNav) {
-			this.leftBtn = $(this.config.leftBtn, $self).insertBefore($self);
-			this.rightBtn = $(this.config.rightBtn, $self).insertAfter($self);
+			this.leftBtn = $(this.config.leftBtn + ':first', $self);
+			this.rightBtn = $(this.config.rightBtn + ':first', $self);
 			this.leftBtn.click(function () {
 				if (self.slideInterval) {clearInterval(self.slideInterval);}
 				self.slideCarousel('left');
@@ -57,14 +59,15 @@
 			$(this.config.rightBtn, $self).remove();
 		}
 
-		this.imgList = $('ul:first', $self);
+		this.imgListCnt = $(this.config.imgListCnt + ':first', $self);
+		this.imgList = $(this.config.imgList + ':first', $self);
 
 		var totalImages = $('img', $self);
 		this.config.imgWidth = this.config.imgWidth || totalImages.width();
 		this.imgList.width(totalImages.length * this.config.imgWidth);
 
 		if (this.config.showCaption) {
-			this.imgLinks = $('a', $self);
+			this.imgLinks = $('a', self.imgListCnt);
 			this.imgLinks.each(function (index, el) {
 				var title = $(el).attr('title').replace('{#', '<').replace('#}', '>').replace('!#', '"');
 				$(el).attr('title', title.replace(/(<([^>]+)>)/ig,""));
@@ -81,24 +84,24 @@
 
 	$.fn.slideCarousel = function (to) {
 		var self = this;
-		var $self = $(this);
+		var $imgListCnt = self.imgListCnt;
 		
 		to = typeof(to) !== 'string' ? 'right' : to;
 		to = to === 'left' ? '-' : '+';
-		var moveSize = (self.imgList.width() === ($self.scrollLeft() + self.config.imgWidth)) ? 0 : self.config.imgWidth;
+		var moveSize = (self.imgList.width() === ($imgListCnt.scrollLeft() + self.config.imgWidth)) ? 0 : self.config.imgWidth;
 
 		switch (self.config.transitionType) {
 			case 'slide':
 				moveSize = moveSize ? to + '=' + moveSize : moveSize;
-				$self.animate({'scrollLeft':moveSize}, self.config.slideSpeed, self.config.easing);
+				$imgListCnt.animate({'scrollLeft':moveSize}, self.config.slideSpeed, self.config.easing);
 				break;
 			case 'fade':
-				moveSize = moveSize ? $self.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
-				self.imgList.fadeTo(self.config.easing, 0, function () {$self.scrollLeft(moveSize);self.imgList.fadeTo(self.config.easing, 1)});
+				moveSize = moveSize ? $imgListCnt.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
+				self.imgList.fadeTo(self.config.easing, 0, function () {$imgListCnt.scrollLeft(moveSize);self.imgList.fadeTo(self.config.easing, 1)});
 				break;
 			default:
-				moveSize = moveSize ? $self.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
-				$self.scrollLeft(moveSize);
+				moveSize = moveSize ? $imgListCnt.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
+				$imgListCnt.scrollLeft(moveSize);
 				break;
 		}
 	},

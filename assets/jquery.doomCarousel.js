@@ -21,7 +21,7 @@
 	$.fn.doomCarousel = function (options) {
 		this.config = {leftBtn:'a.doom-carousel-left-btn',
 					   rightBtn:'a.doom-carousel-right-btn',
-					   imgList:'div.doom-carousel-list',
+					   imgList:'ul.doom-carousel-list',
 					   imgListCnt: 'div.doom-carousel-cnt',
 					   transitionType:'slide',
 					   slideSpeed:'800',

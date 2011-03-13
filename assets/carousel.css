@@ -1,6 +1,10 @@
 #doom-carousel {
 }
 
+#doom-carousel a {
+	outline: none;
+}
+
 .doom-carousel-cnt {
 	overflow: hidden;
 	width: 500px;
@@ -42,11 +46,12 @@
 	overflow: hidden;
 }
 
-.doom-carousel-list a {
+.doom-carousel-list li {
 	display: block;
 	float: left;
 	width: 500px;
 	height: 300px;
+	overflow: hidden;
 }
 
 .doom-carousel-pic {

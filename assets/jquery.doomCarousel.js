@@ -62,7 +62,7 @@
 		this.imgListCnt = $(this.config.imgListCnt + ':first', $self);
 		this.imgList = $(this.config.imgList + ':first', $self);
 
-		var totalImages = $('img', $self);
+		var totalImages = $('li', $self);
 		this.config.imgWidth = this.config.imgWidth || totalImages.width();
 		this.imgList.width(totalImages.length * this.config.imgWidth);
 

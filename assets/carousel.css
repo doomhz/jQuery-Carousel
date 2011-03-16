@@ -1,4 +1,6 @@
 #doom-carousel {
+	width: 500px;
+	overflow: hidden;
 }
 
 #doom-carousel a {

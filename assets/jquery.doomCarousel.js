@@ -1,11 +1,11 @@
 /**
 * Doom Carousel
 *
-* A sliding carousel for images.
+* A sliding carousel NOT only for images. :)
 *
 * @author Dumitru Glavan
 * @link http://dumitruglavan.com
-* @version 1.1
+* @version 1.2
 * @requires jQuery v1.3.2 or later
 *
 * Examples and documentation at: http://dumitruglavan.com/jquery-doom-carousel-plugin/
@@ -21,16 +21,17 @@
 	$.fn.doomCarousel = function (options) {
 		this.config = {leftBtn:'a.doom-carousel-left-btn',
 					   rightBtn:'a.doom-carousel-right-btn',
-					   imgList:'ul.doom-carousel-list',
-					   imgListCnt: 'div.doom-carousel-cnt',
+					   itemList:'ul.doom-carousel-list',
+					   itemListCnt: 'div.doom-carousel-cnt',
 					   transitionType:'slide',
 					   slideSpeed:'800',
 					   easing:'swing',
 					   autoSlide:true,
 					   slideDuration:3000,
-					   imgWidth:0,
+					   itemWidth:0, // Deprecated
 					   showNav:true,
 					   showCaption:true,
+					   stopOnHover:true,
 					   onLoad:null
 					  };
 		$.extend(this.config, options);
@@ -42,16 +43,12 @@
 			this.leftBtn = $(this.config.leftBtn + ':first', $self);
 			this.rightBtn = $(this.config.rightBtn + ':first', $self);
 			this.leftBtn.click(function () {
-				if (self.slideInterval) {clearInterval(self.slideInterval);}
 				self.slideCarousel('left');
-				self.setSlideInterval();
 				return false;
 			});
 
 			this.rightBtn.click(function () {
-				if (self.slideInterval) {clearInterval(self.slideInterval);}
 				self.slideCarousel('right');
-				self.setSlideInterval();
 				return false;
 			});
 		} else {
@@ -59,49 +56,59 @@
 			$(this.config.rightBtn, $self).remove();
 		}
 
-		this.imgListCnt = $(this.config.imgListCnt + ':first', $self);
-		this.imgList = $(this.config.imgList + ':first', $self);
+		this.itemListCnt = $(this.config.itemListCnt + ':first', $self);
+		this.itemList = $(this.config.itemList + ':first', $self);
 
-		var totalImages = $('li', $self);
-		this.config.imgWidth = this.config.imgWidth || totalImages.width();
-		this.imgList.width(totalImages.length * this.config.imgWidth);
+		var totalItems = $('li', $self);
+		this.config.itemWidth = this.config.itemWidth || totalItems.width();
+		this.itemList.width(totalItems.length * this.config.itemWidth);
 
 		if (this.config.showCaption) {
-			this.imgLinks = $('a', self.imgListCnt);
-			this.imgLinks.each(function (index, el) {
+			this.itemLinks = $('a', self.itemListCnt);
+			this.itemLinks.each(function (index, el) {
 				var title = $(el).attr('title').replace('{#', '<').replace('#}', '>').replace('!#', '"');
 				$(el).attr('title', title.replace(/(<([^>]+)>)/ig,""));
 				$('<div class="doom-pic-title">' + title + '</div>').appendTo(el);
 			});
 		}
 
+		this.itemListCnt.scrollLeft(0);
+
 		self.setSlideInterval();
 
 		$.isFunction(this.config.onLoad) && this.config.onLoad(this);
+
+		if (this.config.autoSlide && this.config.stopOnHover) {
+			$(this).mouseover(function () {
+				self.clearSlideInterval();
+			}).mouseout(function () {
+				self.setSlideInterval();
+			});
+		}
 
 		return this;
 	},
 
 	$.fn.slideCarousel = function (to) {
 		var self = this;
-		var $imgListCnt = self.imgListCnt;
+		var $itemListCnt = self.itemListCnt;
 		
 		to = typeof(to) !== 'string' ? 'right' : to;
 		to = to === 'left' ? '-' : '+';
-		var moveSize = (self.imgList.width() === ($imgListCnt.scrollLeft() + self.config.imgWidth)) ? 0 : self.config.imgWidth;
+		var moveSize = (self.itemList.width() === ($itemListCnt.scrollLeft() + self.config.itemWidth)) ? 0 : self.config.itemWidth;
 
 		switch (self.config.transitionType) {
 			case 'slide':
 				moveSize = moveSize ? to + '=' + moveSize : moveSize;
-				$imgListCnt.animate({'scrollLeft':moveSize}, self.config.slideSpeed, self.config.easing);
+				$itemListCnt.animate({'scrollLeft':moveSize}, self.config.slideSpeed, self.config.easing);
 				break;
 			case 'fade':
-				moveSize = moveSize ? $imgListCnt.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
-				self.imgList.fadeTo(self.config.easing, 0, function () {$imgListCnt.scrollLeft(moveSize);self.imgList.fadeTo(self.config.easing, 1)});
+				moveSize = moveSize ? $itemListCnt.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
+				self.itemList.fadeTo(self.config.easing, 0, function () {$itemListCnt.scrollLeft(moveSize);self.itemList.fadeTo(self.config.easing, 1)});
 				break;
 			default:
-				moveSize = moveSize ? $imgListCnt.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
-				$imgListCnt.scrollLeft(moveSize);
+				moveSize = moveSize ? $itemListCnt.scrollLeft() + ~~(+ (to + moveSize)) : moveSize;
+				$itemListCnt.scrollLeft(moveSize);
 				break;
 		}
 	},
@@ -110,6 +117,16 @@
 		if (this.config.autoSlide) {
 			var self = this;
 			self.slideInterval = setInterval(function () {self.slideCarousel('right');}, self.config.slideDuration);
+			return self.slideInterval;
 		}
+		return false;
+	},
+
+	$.fn.clearSlideInterval= function () {
+		if (this.slideInterval) {
+			var intId = this.slideInterval;
+			return clearInterval(intId);
+		}
+		return false;
 	}
 })(jQuery);

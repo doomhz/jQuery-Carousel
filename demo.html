@@ -20,6 +20,7 @@
 				<li><a href="#" title="Article 3 {#br /#} by Chuck Norris"><img src="pics/3.jpg" alt="Car 3" class="doom-carousel-pic" /></a></li>
 				<li><a href="#" title="Article 4 {#br /#} by Chuck Norris"><img src="pics/4.jpg" alt="Car 4" class="doom-carousel-pic" /></a></li>
 				<li><a href="#" title="Article 5 {#br /#} by Chuck Norris"><img src="pics/5.jpg" alt="Car 5" class="doom-carousel-pic" /></a></li>
+				<li><p><img src="pics/chuck-norris.jpg" alt="Approved by Chuck Norris" class="doom-carousel-pic" /></p><p>From now on you can store text and images in your carousel!</p></li>
 			</ul>
 		</div>
 		<a href="#right" title="Right" class="doom-carousel-right-btn"><span>Next</span></a>
@@ -65,9 +66,9 @@
 			<dd>
 				Sets the timing for autosliding.
 			</dd>
-			<dt><b>imgWidth</b> (0):</dt>
+			<dt><b>itemWidth</b> (0): (deprecated)</dt>
 			<dd>
-				By default carousel tries to detect the img width automaticaly. It's good to set this if you encounter some problems with the slider.
+				By default carousel tries to detect the item width automaticaly. Normaly you don't need to specify it if you set it in CSS.
 			</dd>
 			<dt><b>showNav</b> (true):</dt>
 			<dd>
@@ -76,6 +77,10 @@
 			<dt><b>showCaption</b> (true):</dt>
 			<dd>
 				Show title caption on slider.
+			</dd>
+			<dt><b>stopOnHover</b> (true):</dt>
+			<dd>
+				Stop carousel on mouseover so the user can view the slide content. Start the carousel on mouseout.
 			</dd>
 			<dt><b>onLoad</b> (null):</dt>
 			<dd>
@@ -117,7 +122,7 @@
 
 		<script type="text/javascript">
 			$(document).ready(function () {
-				$('#doom-carousel').doomCarousel({easing:'easeInOutQuad', imgWidth:500});
+				$('#doom-carousel').doomCarousel({easing:'easeInOutQuad'});
 			});
 		</script>
 

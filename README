@@ -30,6 +30,8 @@ showNav (true):
     Show prev/next links.
 showCaption (true):
     Show title caption on slider.
+stopOnHover (true):
+    Stop carousel on mouseover so the user can view the slide content. Start the carousel on mouseout.
 onLoad (null):
     Callback function that is called after the carousel is loaded and started.
 

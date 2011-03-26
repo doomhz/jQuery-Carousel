@@ -2,10 +2,11 @@
 * Doom Carousel
 *
 * A sliding carousel NOT only for images. :)
+* Also works for multiple carousels on the same page $('.doom-carousel').doomCarousel();
 *
 * @author Dumitru Glavan
 * @link http://dumitruglavan.com
-* @version 1.2
+* @version 1.3
 * @requires jQuery v1.3.2 or later
 *
 * Examples and documentation at: http://dumitruglavan.com/jquery-doom-carousel-plugin/
@@ -19,6 +20,15 @@
 */
 ;(function ($) {
 	$.fn.doomCarousel = function (options) {
+
+		// Check if multiple elements and assign a carousel for everyone
+		if ($(this).length > 1) {
+			$(this).each(function (i, el) {
+				$(el).doomCarousel(options);
+			});
+			return this;
+		}
+
 		this.config = {leftBtn:'a.doom-carousel-left-btn',
 					   rightBtn:'a.doom-carousel-right-btn',
 					   itemList:'ul.doom-carousel-list',
@@ -28,7 +38,8 @@
 					   easing:'swing',
 					   autoSlide:true,
 					   slideDuration:3000,
-					   itemWidth:0, // Deprecated
+					   itemWidth:0,
+					   itemsToScroll:1,
 					   showNav:true,
 					   showCaption:true,
 					   stopOnHover:true,
@@ -92,10 +103,10 @@
 	$.fn.slideCarousel = function (to) {
 		var self = this;
 		var $itemListCnt = self.itemListCnt;
-		
+
 		to = typeof(to) !== 'string' ? 'right' : to;
 		to = to === 'left' ? '-' : '+';
-		var moveSize = (self.itemList.width() === ($itemListCnt.scrollLeft() + self.config.itemWidth)) ? 0 : self.config.itemWidth;
+		var moveSize = (self.itemList.width() === ($itemListCnt.scrollLeft() + self.config.itemWidth * self.config.itemsToScroll)) ? 0 : self.config.itemWidth * self.config.itemsToScroll;
 
 		switch (self.config.transitionType) {
 			case 'slide':
